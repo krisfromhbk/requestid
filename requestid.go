@@ -46,10 +46,11 @@ func Middleware(next http.Handler) http.Handler {
 
 		r = r.WithContext(ctx)
 
-		next.ServeHTTP(w, r)
-
 		h := w.Header()
 
 		h.Add(HTTPHeaderNameRequestID, GetReqID(ctx))
+
+		next.ServeHTTP(w, r)
+
 	})
 }
